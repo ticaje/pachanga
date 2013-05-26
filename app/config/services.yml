@@ -1,0 +1,4 @@
+# Application services configuration file
+services:
+    pachanga.helper.util:
+        class: Pachanga\Helpers\Util

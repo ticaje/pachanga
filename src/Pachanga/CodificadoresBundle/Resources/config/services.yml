@@ -1,0 +1,7 @@
+parameters:
+#    codificadores.example.class: Pachanga\CodificadoresBundle\Example
+
+services:
+#    codificadores.example:
+#        class: %codificadores.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

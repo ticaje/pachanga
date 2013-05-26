@@ -1,0 +1,7 @@
+parameters:
+#    anuncio.example.class: Pachanga\AnuncioBundle\Example
+
+services:
+#    anuncio.example:
+#        class: %anuncio.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

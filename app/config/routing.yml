@@ -1,0 +1,16 @@
+anuncio:
+    resource: "@AnuncioBundle/Resources/config/routing.yml"
+    prefix:   /
+
+equipo:
+    resource: "@EquipoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+usuario:
+    resource: "@UsuarioBundle/Resources/config/routing.yml"
+    prefix:   /
+
+codificadores:
+    resource: "@CodificadoresBundle/Resources/config/routing.yml"
+    prefix:   /
+
