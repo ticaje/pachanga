@@ -31,27 +31,11 @@ class Respuesta
   private $texto;
 
   /**
-   * Set texto
+   * @var \DateTime
    *
-   * @param string $texto
-   * @return Respuesta
+   * @ORM\Column(name="fecha", type="datetime")
    */
-  public function setTexto($texto)
-  {
-    $this->texto = $texto;
-
-    return $this;
-  }
-
-  /**
-   * Get texto
-   *
-   * @return string
-   */
-  public function getTexto()
-  {
-    return $this->texto;
-  }
+  private $fecha;
 
   /**
    * Set usuario
@@ -92,5 +76,51 @@ class Respuesta
   public function getAnuncio()
   {
     return $this->anuncio;
+  }
+
+  /**
+   * Set texto
+   *
+   * @param string $texto
+   * @return Respuesta
+   */
+  public function setTexto($texto)
+  {
+    $this->texto = $texto;
+
+    return $this;
+  }
+
+  /**
+   * Get texto
+   *
+   * @return string
+   */
+  public function getTexto()
+  {
+    return $this->texto;
+  }
+
+  /**
+   * Set fecha
+   *
+   * @param \DateTime $fecha
+   * @return Respuesta
+   */
+  public function setFecha($fecha)
+  {
+    $this->fecha = $fecha;
+
+    return $this;
+  }
+
+  /**
+   * Get fecha
+   *
+   * @return \DateTime
+   */
+  public function getFecha()
+  {
+    return $this->fecha;
   }
 }
