@@ -2,6 +2,7 @@
 
 namespace Pachanga\EquipoBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,29 +36,8 @@ class Equipo
      */
     private $slug;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="login", type="string", length=50)
-     */
-    private $login;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
-     */
-    private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=255)
-     */
-    private $salt;
-
-    /** @ORM\ManyToOne(targetEntity="Pachanga\CodificadoresBundle\Entity\Ciudad") */
-    private $ciudad;
+    /** @ORM\ManyToOne(targetEntity="Pachanga\EquipoBundle\Entity\Grupo") */
+    private $grupo;
 
     /** @ORM\ManyToOne(targetEntity="Pachanga\CodificadoresBundle\Entity\Deporte") */
     private $deporte;
@@ -119,98 +99,6 @@ class Equipo
     }
 
     /**
-     * Set login
-     *
-     * @param string $login
-     * @return Equipo
-     */
-    public function setLogin($login)
-    {
-        $this->login = $login;
-
-        return $this;
-    }
-
-    /**
-     * Get login
-     *
-     * @return string
-     */
-    public function getLogin()
-    {
-        return $this->login;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Equipo
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     * @return Equipo
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * Set ciudad
-     *
-     * @param \Pachanga\CodificadoresBundle\Entity\Ciudad $ciudad
-     * @return Ciudad
-     */
-    public function setCiudad(\Pachanga\CodificadoresBundle\Entity\Ciudad $ciudad = null)
-    {
-        $this->ciudad = $ciudad;
-
-        return $this;
-    }
-
-    /**
-     * Get ciudad
-     *
-     * @return \Pachanga\CodificadoresBundle\Entity\Ciudad
-     */
-    public function getCiudad()
-    {
-        return $this->ciudad;
-    }
-
-    /**
      * Set deporte
      *
      * @param \Pachanga\CodificadoresBundle\Entity\Deporte $deporte
@@ -231,6 +119,29 @@ class Equipo
     public function getDeporte()
     {
         return $this->deporte;
+    }
+
+    /**
+     * Set grupo
+     *
+     * @param \Pachanga\EquipoBundle\Entity\Grupo $grupo
+     * @return Grupo
+     */
+    public function setGrupo(\Pachanga\EquipoBundle\Entity\Grupo $grupo = null)
+    {
+        $this->grupo = $grupo;
+
+        return $this;
+    }
+
+    /**
+     * Get grupo
+     *
+     * @return \Pachanga\EquipoBundle\Entity\Grupo
+     */
+    public function getGrupo()
+    {
+        return $this->grupo;
     }
 
     public function __toString()

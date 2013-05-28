@@ -2,8 +2,6 @@
 
 /*
  * Este archivo pertenece a la aplicación de prueba Pachanga.
- * El código fuente de la aplicación incluye un archivo llamado LICENSE
- * con toda la información sobre el copyright y la licencia.
  */
 
 namespace Pachanga\CodificadoresBundle\DataFixtures\ORM;
@@ -22,13 +20,11 @@ class Ciudades extends AbstractFixture implements OrderedFixtureInterface
 {
     public function getOrder()
     {
-        return 10;
+        return 1;
     }
 
     public function load(ObjectManager $manager)
     {
-        // Los 25 municipios más poblados de España según el INE
-        // fuente: http://es.wikipedia.org/wiki/Municipios_de_Espa%C3%B1a_por_poblaci%C3%B3n
 
         $ciudades = array(
             'Madrid',
@@ -42,20 +38,10 @@ class Ciudades extends AbstractFixture implements OrderedFixtureInterface
             'Las Palmas de Gran Canaria',
             'Bilbao',
             'Alicante',
-            'Córdoba',
-            'Valladolid',
             'Vigo',
             'Gijón',
-            'Hospitalet de Llobregat',
             'La Coruña',
-            'Granada',
-            'Vitoria-Gasteiz',
-            'Elche',
-            'Oviedo',
             'Santa Cruz de Tenerife',
-            'Badalona',
-            'Cartagena',
-            'Tarrasa',
         );
 
         foreach ($ciudades as $nombre) {

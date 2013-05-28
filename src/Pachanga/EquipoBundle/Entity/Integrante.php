@@ -5,12 +5,12 @@ namespace Pachanga\EquipoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Integrantes
+ * Integrante
  *
  * @ORM\Table()
  * @ORM\Entity()
  */
-class Integrantes
+class Integrante
 {
   /** @ORM\Column(type="datetime") */
   private $fecha;

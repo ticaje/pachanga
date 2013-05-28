@@ -46,6 +46,13 @@ class Anuncio
     private $actividad;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime")
+     */
+    private $fecha;
+
+    /**
      * Get id
      *
      * @return integer
@@ -145,6 +152,29 @@ class Anuncio
     public function getActividad()
     {
         return $this->actividad;
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return Anuncio
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
     }
 
     public function __toString()
