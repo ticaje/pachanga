@@ -1,0 +1,29 @@
+{% for anuncio in anuncios %}
+{% set expirada = anuncio.fecha|date('YmdHis') < 'now'|date('YmdHis') %}
+<section class="descripcion">
+    <h1><a href="{{ path('anuncio', { 'ciudad': anuncio.actividad.equipo.grupo.ciudad.slug, 'slug' : anuncio.slug }) }}">{{ anuncio.nombre }}</a></h1>
+
+    {{ anuncio.descripcion | display_as_list }}
+
+    {% if not expirada %}
+    <a class="boton" href="{{ path('responder', { 'slug': anuncio.slug }) }}">{{ "Comprar" | trans }}</a>
+    {% endif %}
+</section>
+
+<section class="galeria">
+
+    <p class="actividad"><h2>Nombre actividad:</h2>{{ anuncio.actividad.nombre }}</p>
+    <p class="actividad"><h2>Nombre anuncio:</h2>{{ anuncio.nombre }}</p>
+    <p class="actividad"><h2>Descripcion del anuncio:</h2>{{ anuncio.descripcion }}</p>
+    <p class="actividad"><h2>Fecha del anuncio:</h2>{{ anuncio.fecha|date('d/m/Y') }}</p>
+
+</section>
+
+<section class="direccion">
+    <h2>{{ "Disfruta del anuncio en nuestro equipo" | trans }}:</h2>
+    <p>
+      {{ anuncio.actividad.equipo.nombre | nl2br }}
+    </p>
+</section>
+{% endfor %}
+
