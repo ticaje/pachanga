@@ -12,4 +12,33 @@ use Doctrine\ORM\EntityRepository;
  */
 class UsuarioRepository extends EntityRepository
 {
+#  /* This methods allows the application be able to login either by login or email fields */
+#  public function loadUserByUsername($username) {
+#    return $this->getEntityManager()
+#      ->createQuery('SELECT u FROM
+#      UsuarioBundle:Usuario u
+#      WHERE u.username= :username
+#      OR u.email = :username')
+#      ->setParameters(array(
+#        'username' => $username
+#      ))
+#      ->getOneOrNullResult();
+#  }
+#
+#  public function refreshUser(UserInterface $user) {
+#    $username = $user->getUsername();
+#    echo "pasa por aqui";
+#    if ($user instanceof Usuario) {
+#      print_r(get_class_methods($user));
+#      print_r($user->getUsername());
+#      //throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+#    }
+#
+#    print_r($username); exit;
+#    return $this->loadUserByUsername($username);
+#  }
+#
+#  public function supportsClass($class) {
+#    return $class === 'Pachanga\UsuarioBundle\Entity\Usuario';
+#  }
 }
