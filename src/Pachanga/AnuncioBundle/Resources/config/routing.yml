@@ -1,3 +1,7 @@
-anuncio_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: AnuncioBundle:Default:index }
+# Ruta de la página de detalle de una anuncio
+anuncio:
+    pattern:  /{ciudad}/anuncios/{slug}
+    defaults: { _controller: OfertaBundle:Default:anuncio }
+responder:
+    pattern:  /{ciudad}/anuncios/{slug}/responder
+    defaults: { _controller: AnuncioBundle:Default:responder }
