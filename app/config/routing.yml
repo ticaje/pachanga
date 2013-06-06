@@ -1,8 +1,12 @@
-anuncio:
+AnuncioBundle:
     resource: "@AnuncioBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /{_locale}
+    requirements:
+        _locale: en|es
+    defaults:
+        _locale: es
 
-equipo:
+EquipoBundle:
     resource: "@EquipoBundle/Resources/config/routing.yml"
     prefix:   /
 

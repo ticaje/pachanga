@@ -1,7 +1,10 @@
 # Ruta de la página de detalle de una anuncio
+anuncios_ciudad:
+    pattern:  /{ciudad}/anuncios
+    defaults: { _controller: AnuncioBundle:Default:portada}
 anuncio:
     pattern:  /{ciudad}/anuncios/{slug}
-    defaults: { _controller: OfertaBundle:Default:anuncio }
+    defaults: { _controller: AnuncioBundle:Default:anuncio }
 responder:
     pattern:  /{ciudad}/anuncios/{slug}/responder
     defaults: { _controller: AnuncioBundle:Default:responder }
