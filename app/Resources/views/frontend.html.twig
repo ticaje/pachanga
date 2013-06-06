@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% set ciudadSeleccionada = app.request.attributes.get('ciudad', ciudad_por_defecto) %}
+
+{% block stylesheets %}
+{% stylesheets '@AnuncioBundle/Resources/public/css/normalizar.css'
+               '@AnuncioBundle/Resources/public/css/comun.css'
+               '@AnuncioBundle/Resources/public/css/frontend.css'
+               output='css/frontend.css' %}
+<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+{% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% javascripts '@AnuncioBundle/Resources/public/js/lt_ie9/*' output='js/lt_ie9.js' %}
+<!--[if lt IE 9]>
+    <script src="{{ asset_url }}"></script>
+<![endif]-->
+{% endjavascripts %}
+{% javascripts '@AnuncioBundle/Resources/public/js/frontend/*' output='js/frontend.js' %}
+<script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1><a href="{{ path('portada', { 'ciudad': ciudadSeleccionada }) }}">PACHANGA</a></h1>
+    <nav>
+        <ul>
+            <li><a href="{{ path('portada', { 'ciudad': ciudadSeleccionada }) }}">{{ "Anuncio del día" | trans }} en {{ ciudadSeleccionada }} </a></li>
+
+        </ul>
+    </nav>
+</header>
+
+{% block anuncio %}{% endblock %}
+
+<article {{ block('id') in ['portada', 'anuncio'] ? ' class="anuncio"' : '' }}>
+    {% block article %}{% endblock %}
+</article>
+
+<aside>
+    {% block aside %}
+    <section id="login">
+        {% render controller('UsuarioBundle:Default:cajaLogin') with { 'id': block('id') }, { 'strategy': 'esi' } %}
+    </section>
+    {% endblock %}
+</aside>
+{% endblock %}

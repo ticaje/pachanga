@@ -1,0 +1,29 @@
+{% extends '::frontend.html.twig' %}
+
+{% block title %}Se ha producido un error{% endblock %}
+{% block id 'error' %}
+
+{% block article %}
+    {% if exception.message %}
+        <h1>{{ exception.message }}</h1>
+    {% else %}
+        <h1>No se ha encontrado la página solicitada <span>(error 404)</span></h1>
+    {% endif %}
+
+    <p>La mayoría de errores son temporales, provocados por pequeños cambios
+        y actualizaciones del sitio web.</p>
+
+    <p>Prueba a actualizar la página dentro de unos instantes y seguramente
+        podrás acceder a la página solicitada. Si el error persiste,
+        te agradeceríamos que nos avisaras en la dirección errores@cupon.com</p>
+{% endblock %}
+
+{% block aside %}
+    {{ parent() }}
+
+    <section id="nosotros">
+        <h2>{{ "Sobre nosotros" | trans }}</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </section>
+{% endblock %}

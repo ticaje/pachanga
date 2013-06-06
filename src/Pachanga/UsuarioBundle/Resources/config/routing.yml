@@ -1,3 +1,28 @@
-usuario_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: UsuarioBundle:Default:index }
+# Ruta para que los nuevos usuarios puedan registrarse en el sitio
+usuario_registro:
+    pattern:  /registro
+    defaults: { _controller: UsuarioBundle:Default:registro }
+
+# Ruta para mostrar el perfil del usuario logueado
+usuario_perfil:
+    pattern:  /perfil
+    defaults: { _controller: UsuarioBundle:Default:perfil }
+
+# Ruta para ver todas las compras del usuario logueado
+usuario_anuncios:
+    pattern:  /anuncios
+    defaults: { _controller: UsuarioBundle:Default:anuncios}
+
+# Ruta para la acción de login de de los usuarios del frontend
+usuario_login:
+    pattern:   /login
+    defaults:  { _controller: UsuarioBundle:Default:login }
+
+# Ruta para la acción que comprueba el login del frontend
+usuario_login_check:
+    pattern:   /login_check
+
+# Ruta para la acción de logout de los usuarios del frontend extranet
+usuario_logout:
+    pattern:   /logout
+

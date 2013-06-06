@@ -1,44 +1,49 @@
-jms_security_extra:
-    secure_all_services: false
-    expressions: true
-
 security:
+    firewalls:
+        admin:
+            pattern:  ^/admin
+            security: false
+        grupo:
+            pattern:  ^/grupo
+            security: false
+        frontend:
+            pattern:    ^/*
+            provider: usuarios
+            anonymous:  ~
+            form_login:
+                login_path: usuario_login
+                check_path: usuario_login_check
+            logout:
+                path:       usuario_logout
+
+    access_control:
+        - { path: ^/(es|en)/usuario/(login|registro), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/usuario/*, roles: ROLE_USUARIO }
+        - { path: ^/(es|en)/grupo/(login|registro), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/grupo/*, roles: [ROLE_GRUPO, ROLE_ADMIN] }
+        - { path: ^/admin/*,         roles: ROLE_ADMIN }
+       #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+
     encoders:
         Pachanga\EquipoBundle\Entity\Grupo:        { algorithm: sha512, iterations: 10 }
-        Pachanga\UsuarioBundle\Entity\Usuario:     { algorithm: sha512, iterations: 10 }
+        Pachanga\UsuarioBundle\Entity\Usuario:     plaintext #{ algorithm: sha512, iterations: 10 }
         Symfony\Component\Security\Core\User\User: plaintext
+
+    providers:
+        # Usuarios del frontend
+        usuarios:
+            entity: { class: Pachanga\UsuarioBundle\Entity\Usuario, property: email }
+        # Creadores de los grupos
+        grupos:
+            entity: { class: Pachanga\EquipoBundle\Entity\Grupo, property: login }
+        # Usuarios del backend
+        #administradores:
+        #    memory:
+        #        users:
+        #            # user = admin, pass = 1234
+        #            admin: { password: Eti36Ru/pWG6WfoIPiDFUBxUuyvgMA4L8+LLuGbGyqV9ATuT9brCWPchBqX5vFTF+DgntacecW+sSGD+GZts2A==, roles: ROLE_ADMIN }
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: [ROLE_USUARIO, ROLE_GRUPO, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
-    providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
-
-    firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        login:
-            pattern:  ^/demo/secured/login$
-            security: false
-
-        secured_area:
-            pattern:    ^/demo/secured/
-            form_login:
-                check_path: _security_check
-                login_path: _demo_login
-            logout:
-                path:   _demo_logout
-                target: _demo
-            #anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
-
-    access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

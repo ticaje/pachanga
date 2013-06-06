@@ -2,3 +2,20 @@
 services:
     pachanga.helper.util:
         class: Pachanga\Helpers\Util
+
+    # Twig related services definition
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.debug:
+        class: Twig_Extensions_Extension_Debug
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.cupon:
+        class: Pachanga\AnuncioBundle\Twig\Extension\PachangaExtension
+        arguments: [@translator]
+        tags:
+            - { name: twig.extension }

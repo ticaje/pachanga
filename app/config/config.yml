@@ -4,8 +4,8 @@ imports:
     - { resource: services.yml }
 
 framework:
-    #esi:             ~
-    #translator:      { fallback: %locale% }
+    esi:             { enabled: true }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -19,12 +19,15 @@ framework:
     default_locale:  "%locale%"
     trusted_proxies: ~
     session:         ~
-    fragments:       ~
+    fragments: ~ #{ path: /_proxy }
 
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+        ciudad_por_defecto:  %pachanga.ciudad_por_defecto%
+        directorio_imagenes: '/uploads/images/'
 
 # Assetic Configuration
 assetic:
@@ -64,3 +67,8 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+# Global parameters
+parameters:
+    pachanga.ciudad_por_defecto:  'barcelona'
+    pachanga.directorio.imagenes: %kernel.root_dir%/../web/uploads/images/

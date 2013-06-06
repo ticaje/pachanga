@@ -1,16 +1,42 @@
-anuncio:
+AnuncioBundle:
     resource: "@AnuncioBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /{_locale}
+    requirements:
+        _locale: en|es
+    defaults:
+        _locale: es
 
-equipo:
+EquipoBundle:
     resource: "@EquipoBundle/Resources/config/routing.yml"
     prefix:   /
 
-usuario:
+# Rutas importadas del bundle UsuarioBundle
+UsuarioBundle:
     resource: "@UsuarioBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /{_locale}/usuario
+    requirements:
+        _locale: en|es
+    defaults:
+        _locale: es
 
-codificadores:
-    resource: "@CodificadoresBundle/Resources/config/routing.yml"
-    prefix:   /
+# Ruta para mostrar el formulario de contacto
+contacto:
+    pattern:  /{_locale}/contacto
+    defaults: { _controller: AnuncioBundle:Sitio:contacto, _locale: es }
+    requirements:
+        _locale: en|es
+
+# Rutas de las páginas estáticas del sitio
+estatica:
+    pattern:  /{_locale}/sitio/{pagina}
+    defaults: { _controller: AnuncioBundle:Sitio:estatica, _locale: es }
+    requirements:
+        _locale: en|es
+
+# Ruta de la portada completa del sitio (con _locale y el slug de la ciudad)
+portada:
+    pattern:  /{_locale}/{ciudad}
+    defaults: { _controller: AnuncioBundle:Default:portada, ciudad: %pachanga.ciudad_por_defecto%, _locale: es }
+    requirements:
+        _locale: en|es
 

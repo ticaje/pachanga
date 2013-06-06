@@ -2,248 +2,271 @@
 
 namespace Pachanga\UsuarioBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\ExecutionContext;
 
 /**
- * Usuario
+ * Pachanga\UsuarioBundle\Entity\Usuario
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pachanga\UsuarioBundle\Entity\UsuarioRepository")
+ * @DoctrineAssert\UniqueEntity("email")
  */
-class Usuario
+class Usuario implements UserInterface
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre", type="string", length=100)
-     */
-    private $nombre;
+  public function __sleep()
+  {
+    return array('id');
+  }
+  /**
+   * Método requerido por la interfaz UserInterface
+   */
+  public function eraseCredentials()
+  {
+  }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=100)
-     */
-    private $email;
+  /**
+   * Método requerido por la interfaz UserInterface
+   */
+  public function getRoles()
+  {
+    return array('ROLE_USUARIO');
+  }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
-     */
-    private $password;
+  /**
+   * Método requerido por la interfaz UserInterface
+   */
+  public function getUsername()
+  {
+    return $this->getEmail();
+  }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=255)
-     */
-    private $salt;
+  /**
+   * @var integer $id
+   *
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="permite_email", type="boolean")
-     */
-    private $permiteEmail;
+  /**
+   * @var string $nombre
+   *
+   * @ORM\Column(name="nombre", type="string", length=100)
+   * @Assert\NotBlank()
+   */
+  private $nombre;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_alta", type="datetime")
-     */
-    private $fechaAlta;
+  /**
+   * @var string $email
+   *
+   * @ORM\Column(name="email", type="string", length=255, unique=true)
+   * @Assert\Email()
+   */
+  private $email;
 
-    /** @ORM\ManyToOne(targetEntity="Pachanga\CodificadoresBundle\Entity\Ciudad") */
-    private $ciudad;
+  /**
+   * @var string $password
+   *
+   * @ORM\Column(name="password", type="string", length=255)
+   * @Assert\NotBlank(groups={"registro"})
+   * @Assert\Length(min = 6)
+   */
+  private $password;
 
-    public function __construct()
-    {
-      $this->fechaAlta = new \DateTime();
-    }
+  /**
+   * @var string salt
+   *
+   * @ORM\Column(name="salt", type="string", length=255)
+   */
+  protected $salt;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+  /**
+   * @var boolean $permite_email
+   *
+   * @ORM\Column(name="permite_email", type="boolean")
+   * @Assert\Type(type="bool")
+   */
+  private $permite_email;
 
-    /**
-     * Set nombre
-     *
-     * @param string $nombre
-     * @return Usuario
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
+  /**
+   * @var datetime $fecha_alta
+   *
+   * @ORM\Column(name="fecha_alta", type="datetime")
+   * @Assert\DateTime()
+   */
+  private $fecha_alta;
 
-        return $this;
-    }
+  /**
+   * @var integer $ciudad
+   *
+   * @ORM\ManyToOne(targetEntity="Pachanga\CodificadoresBundle\Entity\Ciudad", inversedBy="usuarios")
+   * @Assert\Type("Pachanga\CiudadBundle\Entity\Ciudad")
+   */
+  private $ciudad;
 
-    /**
-     * Get nombre
-     *
-     * @return string
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
+  public function __construct()
+  {
+    $this->fecha_alta = new \DateTime();
+  }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Usuario
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
+  public function __toString()
+  {
+    return $this->getNombre();
+  }
 
-        return $this;
-    }
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
+  /**
+   * Set nombre
+   *
+   * @param string $nombre
+   */
+  public function setNombre($nombre)
+  {
+    $this->nombre = $nombre;
+  }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Usuario
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
+  /**
+   * Get nombre
+   *
+   * @return string
+   */
+  public function getNombre()
+  {
+    return $this->nombre;
+  }
 
-        return $this;
-    }
+  /**
+   * Set email
+   *
+   * @param string $email
+   */
+  public function setEmail($email)
+  {
+    $this->email = $email;
+  }
 
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
+  /**
+   * Get email
+   *
+   * @return string
+   */
+  public function getEmail()
+  {
+    return $this->email;
+  }
 
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     * @return Usuario
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
+  /**
+   * Set password
+   *
+   * @param string $password
+   */
+  public function setPassword($password)
+  {
+    $this->password = $password;
+  }
 
-        return $this;
-    }
+  /**
+   * Get password
+   *
+   * @return string
+   */
+  public function getPassword()
+  {
+    return $this->password;
+  }
 
-    /**
-     * Get salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
+  /**
+   * Set salt
+   *
+   * @param string $salt
+   */
+  public function setSalt($salt)
+  {
+    $this->salt = $salt;
+  }
 
-    /**
-     * Set permiteEmail
-     *
-     * @param boolean $permiteEmail
-     * @return Usuario
-     */
-    public function setPermiteEmail($permiteEmail)
-    {
-        $this->permiteEmail = $permiteEmail;
+  /**
+   * Get salt
+   *
+   * @return string
+   */
+  public function getSalt()
+  {
+    return $this->salt;
+  }
 
-        return $this;
-    }
+  /**
+   * Set permite_email
+   *
+   * @param boolean $permiteEmail
+   */
+  public function setPermiteEmail($permiteEmail)
+  {
+    $this->permite_email = $permiteEmail;
+  }
 
-    /**
-     * Get permiteEmail
-     *
-     * @return boolean
-     */
-    public function getPermiteEmail()
-    {
-        return $this->permiteEmail;
-    }
+  /**
+   * Get permite_email
+   *
+   * @return boolean
+   */
+  public function getPermiteEmail()
+  {
+    return $this->permite_email;
+  }
 
-    /**
-     * Set fechaAlta
-     *
-     * @param \DateTime $fechaAlta
-     * @return Usuario
-     */
-    public function setFechaAlta($fechaAlta)
-    {
-        $this->fechaAlta = $fechaAlta;
+  /**
+   * Set fecha_alta
+   *
+   * @param datetime $fechaAlta
+   */
+  public function setFechaAlta($fechaAlta)
+  {
+    $this->fecha_alta = $fechaAlta;
+  }
 
-        return $this;
-    }
+  /**
+   * Get fecha_alta
+   *
+   * @return datetime
+   */
+  public function getFechaAlta()
+  {
+    return $this->fecha_alta;
+  }
 
-    /**
-     * Get fechaAlta
-     *
-     * @return \DateTime
-     */
-    public function getFechaAlta()
-    {
-        return $this->fechaAlta;
-    }
+  /**
+   * Set ciudad
+   *
+   * @param Pachanga\CiudadBundle\Entity\Ciudad $ciudad
+   */
+  public function setCiudad(\Pachanga\CodificadoresBundle\Entity\Ciudad $ciudad)
+  {
+    $this->ciudad = $ciudad;
+  }
 
-    /**
-     * Set ciudad
-     *
-     * @param string $ciudad
-     * @return Usuario
-     */
-    public function setCiudad($ciudad)
-    {
-        $this->ciudad = $ciudad;
-
-        return $this;
-    }
-
-    /**
-     * Get ciudad
-     *
-     * @return string
-     */
-    public function getCiudad()
-    {
-        return $this->ciudad;
-    }
-
-    public function __toString()
-    {
-      return $this->getNombre();
-    }
+  /**
+   * Get ciudad
+   *
+   * @return Pachanga\CodificadoresBundle\Entity\Ciudad
+   */
+  public function getCiudad()
+  {
+    return $this->ciudad;
+  }
 }
