@@ -14,7 +14,11 @@
 {% endblock %}
 
 {% block article %}
+  {% for anuncio in anuncios %}
     {% include 'AnuncioBundle:Default:includes/anuncio.html.twig' %}
+  {% else %}
+    <p>Esta ciudad todavía no ha publicado ningun anuncio</p>
+  {% endfor %}
 {% endblock %}
 
 {% block aside %}
