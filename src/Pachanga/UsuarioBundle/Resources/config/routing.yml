@@ -3,6 +3,10 @@ usuario_registro:
     pattern:  /registro
     defaults: { _controller: UsuarioBundle:Default:registro }
 
+after_registro:
+    pattern:  /after_registro
+    defaults: { _controller: UsuarioBundle:Default:afterRegistro }
+
 # Ruta para mostrar el perfil del usuario logueado
 usuario_perfil:
     pattern:  /perfil
