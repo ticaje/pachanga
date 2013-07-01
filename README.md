@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Symfony Standard Edition
 ========================
 
@@ -172,3 +173,9 @@ Enjoy!
 [13]: http://jmsyst.com/bundles/JMSSecurityExtraBundle/master
 [14]: http://jmsyst.com/bundles/JMSDiExtraBundle/master
 [15]: http://symfony.com/doc/2.1/bundles/SensioGeneratorBundle/index.html
+=======
+pachanga
+========
+
+This is intended to be a tool that provides the facilities to create and share amateur clubs of any sport.
+>>>>>>> ea4e17c8ddba5b567541eda21dfd4edbbe2f93b4

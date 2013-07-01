@@ -17,7 +17,7 @@ security:
                 path:       usuario_logout
 
     access_control:
-        - { path: ^/(es|en)/usuario/(login|registro), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/usuario/(login|registro|after_registro), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(es|en)/usuario/*, roles: ROLE_USUARIO }
         - { path: ^/(es|en)/grupo/(login|registro), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(es|en)/grupo/*, roles: [ROLE_GRUPO, ROLE_ADMIN] }

@@ -2,11 +2,14 @@ parameters:
 #    usuario.example.class: Pachanga\UsuarioBundle\Example
 
 services:
-    kernel.listener.login_listener:
+    login_listener:
         class: Pachanga\UsuarioBundle\Listener\LoginListener
-        scope: request
         arguments: [@router, @security.context]
         tags:
-            #- { name: kernel.event_listener, event: security.interactive_login }
-            #- { name: kernel.event_listener, event: kernel.response }
+            - { name: kernel.event_listener, event: security.interactive_login }
+            - { name: kernel.event_listener, event: kernel.response }
             - { name: kernel.event_listener, event: kernel.request }
+    sign_up_listener:
+        class: Pachanga\UsuarioBundle\Listener\SignUpListener
+        tags:
+            - { name: kernel.event_listener, event: registro, method: afterSignUp}

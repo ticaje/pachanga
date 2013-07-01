@@ -3,14 +3,16 @@
 namespace Pachanga\UsuarioBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Routing\Router;
 
 class LoginListener
 {
-  private $router, $context;
+  private $router, $context, $ciudad = null;
 
   public function __construct($router, $context)
   {
@@ -35,5 +37,26 @@ class LoginListener
         $event->setResponse(new RedirectResponse($url));
       }
     }
+  }
+
+  public function onKernelResponse(FilterResponseEvent $event)
+  {
+    if (null != $this->ciudad) {
+      $portada = $this->router->generate('portada', array(
+        'ciudad' => $this->ciudad
+      ));
+
+      $event->setResponse(new RedirectResponse($portada));
+      $event->stopPropagation();
+    }
+  }
+
+  public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+  {
+    $token = $event->getAuthenticationToken();
+    $usuario = $token->getUser();
+    $session = $event->getRequest()->getSession();
+    $session->setFlash('info', 'Bienvenido '.$usuario->getNombre());
+    $this->ciudad = $token->getUser()->getCiudad()->getSlug();
   }
 }

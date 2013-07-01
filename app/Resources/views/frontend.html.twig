@@ -32,7 +32,7 @@
         </ul>
     </nav>
 </header>
-
+{% block flashes %} {% endblock %}
 {% block anuncio %}{% endblock %}
 
 <article {{ block('id') in ['portada', 'anuncio'] ? ' class="anuncio"' : '' }}>
