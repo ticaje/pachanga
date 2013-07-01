@@ -1,13 +1,5 @@
 <?php
 
-/*
- * (c) Javier Eguiluz <javier.eguiluz@gmail.com>
- *
- * Este archivo pertenece a la aplicación de prueba Pachanga.
- * El código fuente de la aplicación incluye un archivo llamado LICENSE
- * con toda la información sobre el copyright y la licencia.
- */
-
 namespace Pachanga\UsuarioBundle\Form\Frontend;
 
 use Symfony\Component\Form\AbstractType;

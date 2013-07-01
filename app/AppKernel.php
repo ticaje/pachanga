@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Pachanga\UsuarioBundle\UsuarioBundle(),
             new Pachanga\EquipoBundle\EquipoBundle(),
             new Pachanga\AnuncioBundle\AnuncioBundle(),
+            new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -8,12 +8,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\ExecutionContext;
 
+
 /**
  * Pachanga\UsuarioBundle\Entity\Usuario
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pachanga\UsuarioBundle\Entity\UsuarioRepository")
- * @DoctrineAssert\UniqueEntity("email")
+ * @DoctrineAssert\UniqueEntity(fields={"email"}, message="Email is already in use")
  */
 class Usuario implements UserInterface
 {
